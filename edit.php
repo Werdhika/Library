@@ -78,11 +78,10 @@ if (isset($_POST['submit'])) {
                         for="exampleFormControlTextarea1"
                         class="form-label">Deskripsi</label>
                     <textarea
-
                         class="form-control"
                         id="exampleFormControlTextarea1"
                         rows="3"
-                        name="description"></textarea>
+                        name="description"><?= $result['description']; ?></textarea>
                 </div>
             </div>
             <div class="col-sm-6 d-flex flex-column">

@@ -4,6 +4,10 @@
     --font-family: 'Poppins', serif;
 }
 
+* {
+    font-family: var(--font-family);
+}
+
 .login {
     height: 100vh;
 }
@@ -133,4 +137,9 @@
 
 .container-file {
     background-color: aqua;
+}
+
+.icon-sidebar {
+    width: 25px;
+    height: 25px;
 }
