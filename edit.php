@@ -44,7 +44,7 @@ if (isset($_POST['submit'])) {
     <h3 class="text-start my-0">Edit Buku</h3>
     <a href="manage-book.php" class="btn btn-secondary p-2">
         <- Kelola Buku
-            </a>
+    </a>
 </div>
 
 <form action="" method="post">
@@ -114,6 +114,10 @@ if (isset($_POST['submit'])) {
                         <option value="20">Teknologi</option>
                         <option value="21">Usaha</option>
                     </select>
+                </div>
+                <div class="mb-3">
+                    <label for="cover">Cover</label><br>
+                    <input type="file" name="cover" id="cover">
                 </div>
             </div>
             <button
