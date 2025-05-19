@@ -1,21 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php session_start();
 
-<head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
-    <title>Login - YuLibrary</title>
-    <link href="css/styles.css" rel="stylesheet" />
-    <link rel="stylesheet" href="css/vanilla.css" />
-    <script
-        src="https://use.fontawesome.com/releases/v6.3.0/js/all.js"
-        crossorigin="anonymous"></script>
-</head>
+require 'connect.php';
+
+if (isset($_POST['login'])) {
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+
+    // Ambil data user berdasarkan email
+    $query = mysqli_query($connect, "SELECT * FROM user WHERE email='$email'");
+    $user = mysqli_fetch_assoc($query);
+
+    // Cek apakah user ditemukan dan password cocok
+    if ($user && $password === $user['password']) {
+        $_SESSION['email'] = $user['email'];
+        $_SESSION['is_admin'] = $user['is_admin'];
+
+        // Redirect sesuai is_admin
+        if ($user['is_admin'] === 'true') {
+            header("Location: index.php");
+        } else {
+            header("Location: index.php");
+        }
+        exit;
+    } else {
+        echo "<script>alert('email atau Password salah!'); window.location='login.php';</script>";
+    }
+}
+
+?>
+
+<?php require_once 'partials/header.php' ?>
+
+</body>
+
+</html>
 
 <body>
     <section class="login d-flex">
@@ -50,48 +68,46 @@
         <div class="login-right w-50 h-100 align-content-center">
             <div class="row justify-content-center">
                 <div class="col-6">
-                    <div class="header">
-                        <h1 class="text-center">Login</h1>
-                        <p class="text-center">
-                            Welcome, please input your data
-                        </p>
-                        <div class="login-form">
-                            <label for="email" class="form-label">Email</label>
-                            <input
-                                type="email"
-                                class="form-control"
-                                id="email"
-                                placeholder="Enter your email" />
-                        </div>
-                        <div class="login-form">
-                            <label for="password" class="form-label">Password</label>
-                            <input
-                                type="password"
-                                class="form-control"
-                                id="password"
-                                placeholder="Enter your password" />
-                            <a
-                                href="password.php"
-                                class="fp d-block text-end text-decoration-none text-black my-4">Forgot Password</a>
-                            <button class="signin">Sign in</button>
-                            <p class="w-100 text-center">
-                                Don’t have an account?
-                                <a
-                                    href="register.php"
-                                    class="d-inline text-decoration-none">
-                                    Sign Up for free</a>
+                    <form action="" method="post">
+                        <div class="header">
+                            <h1 class="text-center">Login</h1>
+                            <p class="text-center">
+                                Welcome, please input your data
                             </p>
+                            <div class="login-form">
+                                <label for="email" class="form-label">Email</label>
+                                <input
+                                    type="email"
+                                    class="form-control"
+                                    id="email"
+                                    name="email"
+                                    placeholder="Enter your email" />
+                            </div>
+                            <div class="login-form">
+                                <label for="password" class="form-label">Password</label>
+                                <input
+                                    type="password"
+                                    class="form-control"
+                                    id="password"
+                                    name="password"
+                                    placeholder="Enter your password" />
+                                <a
+                                    href="password.php"
+                                    class="fp d-block text-end text-decoration-none text-black my-4">Forgot Password</a>
+                                <button class="signin" name="login">Sign in</button>
+                                <p class="w-100 text-center">
+                                    Don’t have an account?
+                                    <a
+                                        href="register.php"
+                                        class="d-inline text-decoration-none">
+                                        Sign Up for free</a>
+                                </p>
+                            </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
     </section>
 
-    <script
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-        crossorigin="anonymous"></script>
-    <script src="js/scripts.js"></script>
-</body>
-
-</html>
+    <?php require_once 'partials/footer.php' ?>

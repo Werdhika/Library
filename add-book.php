@@ -1,4 +1,4 @@
-<?php
+<?php session_start();
 
 require 'connect.php';
 
@@ -92,7 +92,7 @@ if (isset($_POST['submit'])) {
                     <select
                         class="form-select"
                         aria-label="Default select example"
-                        name="category_id"
+                        name="category_id"  
                         placeholder="Pilih Category...">
                         <option value="1">Anak-anak</option>
                         <option value="2">Biografi</option>

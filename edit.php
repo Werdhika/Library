@@ -1,13 +1,20 @@
-<?php
+<?php session_start();
 
+//  Koneksi ke Database
+//? ------------------ +
 require 'connect.php';
+
+//  Mengambil id buku di database
+//? ------------------------------ +
 $id = $_GET['id'];
 
+//  Mengambil data buku berdasarkan id
+//? ---------------------------------- +
 $sql = "SELECT * FROM library_books WHERE id=$id";
-
 $result = mysqli_query($connect, $sql)->fetch_assoc();
 
 if (isset($_POST['submit'])) {
+    $id_buku = $_POST['id_book'];
     $title = $_POST['title'];
     $author = $_POST['author'];
     $description = $_POST['description'];
@@ -27,10 +34,42 @@ if (isset($_POST['submit'])) {
             WHERE id = $id";
 
     if ($data = mysqli_query($connect, $query)) {
-        echo "<script>alert('Data berhasil diubah!')</script>";
-        header("location: manage-book.php");
+        echo "<script>alert('Update Buku')</script>";
+        header('location: manage-book.php');
     } else {
-        echo "<script>alert('Data tidak berhasil diubah!')</script>";
+        return;
+    }
+
+    //  Proses update file yang akan di unggah
+    //? -------------------------------------- +
+    $nama_file = $_FILES['cover']['name'];
+    $tmp_file = $_FILES['cover']['tmp_name'];
+
+    if ($nama_file != "") {
+        $ekstensi = strtolower(pathinfo($nama_file, PATHINFO_EXTENSION));
+        $ekstensi_diizinkan = ['jpg', 'png'];
+        $nama_baru = rand(1, 999) . '.' . $ekstensi;
+
+        if (in_array($ekstensi, $ekstensi_diizinkan)) {
+            $query = mysqli_query($connect, "SELECT cover FROM library_books WHERE id='$id_buku'");
+            $data = mysqli_fetch_assoc($query);
+            $cover_lama = $data['cover'];
+
+            if ($cover_lama != '' && file_exists('gambar/' . $cover_lama)) {
+                unlink('gambar/' . $cover_lama);
+            }
+
+            move_uploaded_file($tmp_file, 'gambar/' . $nama_baru);
+            $update = mysqli_query($connect, "UPDATE library_books SET cover='$nama_baru' WHERE id='$id_buku'");
+
+            if (!$update) {
+                echo "<h1>Gagal update cover.</h1>";
+                return;
+            }
+        } else {
+            echo "<h1>Ekstensi file tidak diperbolehkan. Hanya jpg dan png.</h1>";
+            return;
+        }
     }
 }
 
@@ -43,11 +82,12 @@ if (isset($_POST['submit'])) {
 <div class="d-flex my-3 justify-content-between">
     <h3 class="text-start my-0">Edit Buku</h3>
     <a href="manage-book.php" class="btn btn-secondary p-2">
-        <- Kelola Buku
+        Kelola Buku
     </a>
 </div>
 
-<form action="" method="post">
+<form action="" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="id_book" value="<?= $result['id']; ?>">
     <div class="container">
         <div class="row">
             <div class="col-sm-6">

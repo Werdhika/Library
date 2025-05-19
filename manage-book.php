@@ -1,4 +1,4 @@
-<?php
+<?php session_start();
 
 require 'connect.php';
 
@@ -14,7 +14,7 @@ $i = 0;
 <div class="d-flex my-3 justify-content-between">
     <div class="d-flex gap-3 w-25 ">
         <input type="text" class="form-control " placeholder="Search" aria-label="Recipient's username" aria-describedby="button-addon2">
-        <button class="btn btn-outline-secondary " type="button" id="button-addon2">Submit</button>
+        <button class="btn btn-outline-secondary " type="button" id="button-addon2">Search</button>
     </div>
     <a href="add-book.php" id="button-submit" class="btn btn-secondary">
         Tambah Buku
