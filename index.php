@@ -1,4 +1,9 @@
 <?php session_start();
+
+if (!isset($_SESSION['is_admin'])) {
+    header('location: login.php');
+}
+
 require_once './layouts/app-head.php'; ?>
 <h1 class="mt-4">Dashboard</h1>
 <ol class="breadcrumb mb-4">
