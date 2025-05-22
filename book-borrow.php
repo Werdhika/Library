@@ -1,19 +1,8 @@
 <?php session_start();
 
-require 'connect.php';
 
-$i = 0;
-if (!isset($_GET['search'])) {
-    $sql = "SELECT * From library_books;";
-    $result = $connect->query($sql);
-} else {
-    $keyword = isset($_GET['search']) ? $connect->real_escape_string($_GET['search']) : '';
-    $sql = "SELECT * FROM library_books WHERE title LIKE '%$keyword%'";
-    $result = $connect->query($sql);
-}
 ?>
 
-<!-- header -->
 <?php require_once './layouts/app-head.php'; ?>
 
 <div class="d-flex my-3 justify-content-between">
@@ -21,12 +10,7 @@ if (!isset($_GET['search'])) {
         <input name="search" type="text" class="form-control " placeholder="Search" aria-label="Recipient's username" aria-describedby="button-addon2">
         <button class="btn btn-outline-secondary " type="submit" id="button-addon2">Search</button>
     </form>
-    <a href="add-book.php" id="button-submit" class="btn btn-secondary">
-        Tambah Buku
-    </a>
 </div>
-
-
 
 <table class="table table-striped">
     <thead id="table-subheading" class="table table-light">

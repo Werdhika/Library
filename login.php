@@ -11,7 +11,8 @@ if (isset($_POST['login'])) {
     $user = mysqli_fetch_assoc($query);
 
     // Cek apakah user ditemukan dan password cocok
-    if ($user && password_verify($password,$user['password'])) {
+    if ($user && password_verify($password, $user['password'])) {
+        $_SESSION['user_id'] = $user['id'];
         $_SESSION['email'] = $user['email'];
         $_SESSION['username'] = $user['username'];
         $_SESSION['is_admin'] = $user['is_admin'];
