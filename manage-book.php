@@ -17,13 +17,13 @@ if (!isset($_GET['search'])) {
 <?php require_once './layouts/app-head.php'; ?>
 
 <div class="d-flex my-3 justify-content-between">
+    <a href="add-book.php" id="button-submit" class="btn btn-secondary">
+        Tambah Buku
+    </a>
     <form action="" method="get" class="d-flex gap-3 w-25">
         <input name="search" type="text" class="form-control " placeholder="Search" aria-label="Recipient's username" aria-describedby="button-addon2">
         <button class="btn btn-outline-secondary " type="submit" id="button-addon2">Search</button>
     </form>
-    <a href="add-book.php" id="button-submit" class="btn btn-secondary">
-        Tambah Buku
-    </a>
 </div>
 
 

@@ -58,7 +58,6 @@ $result = $connect->query($sql);
             <div class="card-footer text-start h-100">
                 <p class="text-muted mb-1"><small>Kategori: <?= htmlspecialchars($book['category_name']) ?></small></p>
                 <h5 class="card-title"><?= htmlspecialchars($book['title']) ?></h5>
-                <p class="card-text mb-1"><?= htmlspecialchars($book['description']) ?></p>
                 <p class="text-muted mb-2"><small>Penulis: <?= htmlspecialchars($book['author']) ?></small></p>
             </div>
         </div>
