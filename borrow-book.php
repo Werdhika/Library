@@ -7,6 +7,8 @@ if (!isset($_SESSION['user_id'])) {
     exit;
 }
 
+// var_dump($_POST); die();
+
 $user_id = $_SESSION['user_id'];
 
 if (isset($_POST['book_id'])) {
@@ -33,11 +35,13 @@ if (isset($_POST['book_id'])) {
         $stmt->bind_param("iisss", $user_id, $book_id, $loan_date, $return_date_str, $loan_status);
 
         if ($stmt->execute()) {
-            echo "<script>alert('Peminjaman Buku Berhasil!');</script>";
+            echo "<script>
+                alert('Peminjaman Buku Berhasil!');
+                window.location.href = 'view-detail-book.php?id=$book_id';
+            </script>";
+            exit;
         } else {
             echo "Gagal meminjam buku.";
         }
     }
-
-    header('Location: view-detail-book.php?id=' . $book_id);
 }

@@ -46,7 +46,7 @@ $user = mysqli_fetch_assoc($query);
                         </div>
                         <span>Jelajahi buku</span>
                     </a>
-                    <a class="nav-link" href="book-borrow.php">
+                    <a class="nav-link" href="list-book-borrow.php">
                         <div class="icon-sidebar">
                             
                         </div>
